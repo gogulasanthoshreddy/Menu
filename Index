@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Menu</title>
+</head>
+<body>
+    <h1>Restaurant Menu</h1>
+    <form id="menu-form">
+        <label>
+            <input type="checkbox" name="items" value="Pizza"> Pizza
+        </label><br>
+        <label>
+            <input type="checkbox" name="items" value="Pasta"> Pasta
+        </label><br>
+        <label>
+            <input type="checkbox" name="items" value="Salad"> Salad
+        </label><br>
+        <button type="submit">Order via WhatsApp</button>
+    </form>
+    <script>
+        document.getElementById('menu-form').onsubmit = function(e) {
+            e.preventDefault();
+            const selectedItems = Array.from(document.querySelectorAll('input[name="items"]:checked'))
+                                       .map(item => item.value);
+            const message = encodeURIComponent("I would like to order: " + selectedItems.join(", "));
+            const whatsappLink = "https://api.whatsapp.com/send?text=" + message;
+            window.open(whatsappLink, '_blank');
+        };
+    </script>
+</body>
+</html>
